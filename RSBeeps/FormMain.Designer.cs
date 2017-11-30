@@ -37,6 +37,8 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startPauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setMaxTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,12 +76,13 @@
             this.buttonStart.TabIndex = 4;
             this.buttonStart.Text = "Start";
             this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.buttonStartClick);
+            this.buttonStart.Click += new System.EventHandler(this.ButtonStartClick);
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.configToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(167, 24);
@@ -102,7 +105,7 @@
             this.startPauseToolStripMenuItem.Name = "startPauseToolStripMenuItem";
             this.startPauseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.startPauseToolStripMenuItem.Text = "Start/Pause";
-            this.startPauseToolStripMenuItem.Click += new System.EventHandler(this.startPauseToolStripMenuItem_Click);
+            this.startPauseToolStripMenuItem.Click += new System.EventHandler(this.StartPauseToolStripMenuItem_Click);
             // 
             // restartToolStripMenuItem
             // 
@@ -110,7 +113,22 @@
             this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
             this.restartToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.restartToolStripMenuItem.Text = "Restart";
-            this.restartToolStripMenuItem.Click += new System.EventHandler(this.restartToolStripMenuItem_Click);
+            this.restartToolStripMenuItem.Click += new System.EventHandler(this.RestartToolStripMenuItem_Click);
+            // 
+            // configToolStripMenuItem
+            // 
+            this.configToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.setMaxTimeToolStripMenuItem});
+            this.configToolStripMenuItem.Name = "configToolStripMenuItem";
+            this.configToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.configToolStripMenuItem.Text = "Config";
+            // 
+            // setMaxTimeToolStripMenuItem
+            // 
+            this.setMaxTimeToolStripMenuItem.Name = "setMaxTimeToolStripMenuItem";
+            this.setMaxTimeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.setMaxTimeToolStripMenuItem.Text = "Set Max Time";
+            this.setMaxTimeToolStripMenuItem.Click += new System.EventHandler(this.SetMaxTimeToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -146,6 +164,8 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startPauseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restartToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem configToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setMaxTimeToolStripMenuItem;
     }
 }
 

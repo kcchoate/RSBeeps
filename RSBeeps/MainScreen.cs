@@ -70,7 +70,7 @@ namespace RSBeeps
             StartScreen(timer);
         }
 
-        //Plays the sound once every 50 seconds (assumes timer interval is 1000ms) and resets timer to maxTime when time is 0
+        //Plays the sound once every maxTime seconds (assumes timer interval is 1000ms) and resets timer to maxTime when time is 0
         public void TickScreenDown(Label text)
         {
             if (remainingTime == maxTime && !firstBeepPlayed)
@@ -84,6 +84,17 @@ namespace RSBeeps
             if (remainingTime == 0)
             {
                 remainingTime = maxTime;
+            }
+        }
+
+        //sets the max time and restarts the timer if it has been started
+        public void ChangeMaxTime(int newTime, Label time, Timer timer)
+        {
+            maxTime = newTime;
+            //check to see if the time is visible, if it then we've started and we want to restart the timer
+            if (time.Visible == true)
+            {
+                RestartTimer(time, timer);
             }
         }
 
