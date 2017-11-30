@@ -13,24 +13,67 @@ namespace RSBeeps
 {
     public class MainScreen
     {
-
+        private int maxTime;
         private int remainingTime;
-        private bool firstbeep;
+        private bool firstBeepPlayed;
         private SoundPlayer soundPlayer;
 
         //Constructor
         public MainScreen()
         {
-            //set to 48 so the initial beep is not followed by a beep from the timer
-            remainingTime = 49;
-            firstbeep = true;
+            maxTime = 49;
+            remainingTime = maxTime;
+            firstBeepPlayed = true;
             soundPlayer = new SoundPlayer("C:\\Program Files (x86)\\RSBeeps\\Media\\beep.wav");
         }
-        
-        //Plays the sound once every 50 seconds (assumes timer interval is 1000ms) and resets timer to 49 when time is 0
+
+        //beeps once and then configures and starts the timer.
+        private void StartScreen(Timer timer)
+        {
+            //play an initial beep of the timer so that it beeps when started (otherwise it waits one second)
+            beep();
+            firstBeepPlayed = true;
+
+            //set the timer to tick every 1 second
+            timer.Interval = 1000;
+
+            //start the timer. The timer will call the timer1_Tick event handler function every 1 second
+            timer.Start();
+        }
+
+        //enables the toolbar items that are passed
+        private void EnableToolbarItems(ToolStripMenuItem[] toolbaritems)
+        {
+            foreach (ToolStripMenuItem item in toolbaritems)
+            {
+                item.Enabled = true;
+            }
+        }
+
+        //uses the SoundPlayer to play the .wav 
+        private void beep()
+        {
+            soundPlayer.Play();
+        }
+
+        //disables button, displays labels, and starts timer countdown
+        public void TransitionScreen(Button button, Label message, Label time, Timer timer, ToolStripMenuItem[] toolbaritems)
+        {
+            //disable button 
+            button.Enabled = false;
+            button.Visible = false;
+            //enable labels and toolbar item
+            message.Visible = true;
+            time.Visible = true;
+            EnableToolbarItems(toolbaritems);
+
+            StartScreen(timer);
+        }
+
+        //Plays the sound once every 50 seconds (assumes timer interval is 1000ms) and resets timer to maxTime when time is 0
         public void TickScreenDown(Label text)
         {
-            if (remainingTime == 49 && !firstbeep)
+            if (remainingTime == maxTime && !firstBeepPlayed)
             {
                 //drop the beep
                 beep();
@@ -40,44 +83,19 @@ namespace RSBeeps
 
             if (remainingTime == 0)
             {
-                remainingTime = 49;
+                remainingTime = maxTime;
             }
-
-            //set first beep to false
-            firstbeep = false;
         }
 
-        //disables button, displays labels, and starts timer countdown
-        public void TransitionScreen(Button button, Label message, Label time, Timer timer)
+        //restarts the timer
+        public void RestartTimer(Label time, Timer timer)
         {
-            //disable button
-            button.Enabled = false;
-            button.Visible = false;
-            //enable labels
-            message.Visible = true;
-            time.Visible = true;
-
+            //stop the timer, reset time, then call start the screen again
+            timer.Stop();
+            remainingTime = maxTime;
+            time.Text = maxTime.ToString();
             StartScreen(timer);
         }
-        
-        //beeps once and then configures and starts the timer.
-        public void StartScreen(Timer timer)
-        {
-            //play an initial beep of the timer so that it beeps when started (otherwise it waits one second)
-            beep();
-
-            //set the timer to tick every 1 second
-            timer.Interval = 1000;
-
-            //start the timer. The timer will call the timer1_Tick event handler function every 1 second
-            timer.Start();
-        }
-
-        //uses the SoundPlayer to play the .wav 
-        private void beep()
-        {
-            soundPlayer.Play();
-        }
-
+       
     } 
 }
