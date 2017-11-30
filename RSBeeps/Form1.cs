@@ -10,22 +10,25 @@ using System.Windows.Forms;
 
 namespace RSBeeps
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
         MainScreen screen;
 
-        public Form1()
+        public FormMain()
         {
             screen = new MainScreen();
             InitializeComponent();
-
-            //initialize the screen 
-            screen.InitializeScreen(timer1);
         }
 
+        //event handler for timer1
         private void timer1_Tick(object sender, EventArgs e)
         {
-            screen.TickScreenDown(richTextBox1);
+            screen.TickScreenDown(LabelTimeText);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            screen.TransitionScreen(buttonStart, labelInfo, LabelTimeText, timer1);
         }
     }
 }

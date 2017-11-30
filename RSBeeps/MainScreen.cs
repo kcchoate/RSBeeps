@@ -26,13 +26,14 @@ namespace RSBeeps
             firstbeep = true;
             soundPlayer = new SoundPlayer("C:\\Program Files (x86)\\RSBeeps\\Media\\beep.wav");
         }
-    
-        public void TickScreenDown(RichTextBox text)
+        
+        //Plays the sound once every 50 seconds (assumes timer interval is 1000ms) and resets timer to 49 when time is 0
+        public void TickScreenDown(Label text)
         {
             if (remainingTime == 49 && !firstbeep)
             {
                 //drop the beep
-                soundPlayer.Play();
+                beep();
             }
             //bring the beep back and shout it loud
             text.Text = (--remainingTime).ToString();
@@ -46,8 +47,21 @@ namespace RSBeeps
             firstbeep = false;
         }
 
+        //disables button, displays labels, and starts timer countdown
+        public void TransitionScreen(Button button, Label message, Label time, Timer timer)
+        {
+            //disable button
+            button.Enabled = false;
+            button.Visible = false;
+            //enable labels
+            message.Visible = true;
+            time.Visible = true;
 
-        public void InitializeScreen(Timer timer)
+            StartScreen(timer);
+        }
+        
+        //beeps once and then configures and starts the timer.
+        public void StartScreen(Timer timer)
         {
             //play an initial beep of the timer so that it beeps when started (otherwise it waits one second)
             beep();
@@ -58,7 +72,9 @@ namespace RSBeeps
             //start the timer. The timer will call the timer1_Tick event handler function every 1 second
             timer.Start();
         }
-        public void beep()
+
+        //uses the SoundPlayer to play the .wav 
+        private void beep()
         {
             soundPlayer.Play();
         }
