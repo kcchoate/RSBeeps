@@ -19,7 +19,7 @@ namespace RSBeeps
         {
             paused = false;
             InitializeComponent();
-            screen = new MainScreen(ref LabelTimeText, ref labelInfo, ref timer1, ref buttonStart);
+            screen = new MainScreen(ref LabelTimeText, ref labelInfo, ref timer1, ref buttonStart, ref buttonPauseStart, ref buttonRestart);
         }
 
         //event handler for timer1, calls to tick down the screen if not paused
@@ -33,33 +33,33 @@ namespace RSBeeps
 
         private void ButtonStartClick(object sender, EventArgs e)
         {
-            ToolStripMenuItem[] toolStripItems = new ToolStripMenuItem[] { fileToolStripMenuItem, restartToolStripMenuItem,
-                startPauseToolStripMenuItem };
-            screen.TransitionScreen(toolStripItems);
+            screen.TransitionScreen();
         }
 
         //fired from File > Restart. Restarts the timer at 50.
-        private void RestartToolStripMenuItem_Click(object sender, EventArgs e)
+        private void buttonRestart_Click(object sender, EventArgs e)
         {
             screen.RestartTimer();
         }
 
         //starts and pauses the timer and changes the top label to provide more info
-        private void StartPauseToolStripMenuItem_Click(object sender, EventArgs e)
+        private void buttonPauseStart_Click(object sender, EventArgs e)
         {
             paused = !paused;
             if (paused)
             {
                 labelInfo.Text = "PAUSED";
+                buttonPauseStart.Text = "Start";
             }
             else
             {
                 labelInfo.Text = "Time to next beep";
+                buttonPauseStart.Text = "Pause";
             }
         }
 
         //pulls up form for max timer entry
-        private void SetMaxTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void buttonMaxTime_Click(object sender, EventArgs e)
         {
             FormMaxEntry newMaxScreen = new FormMaxEntry(screen, LabelTimeText, timer1);
             newMaxScreen.Show();

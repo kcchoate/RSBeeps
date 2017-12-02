@@ -21,10 +21,12 @@ namespace RSBeeps
         private Label infoLabel;
         private Timer timer;
         private Button goButton;
+        private Button startPauseButton;
+        private Button restartButton;
 
 
         //Constructor: passed by reference so that changes to a passed object appear on the screen
-        public MainScreen(ref Label _time, ref Label _info, ref Timer _timer, ref Button _go)
+        public MainScreen(ref Label _time, ref Label _info, ref Timer _timer, ref Button _go, ref Button _startPause, ref Button _restart)
         {
             maxTime = 50;
             remainingTime = maxTime;
@@ -34,7 +36,8 @@ namespace RSBeeps
             infoLabel = _info;
             timer = _timer;
             goButton = _go;
-
+            startPauseButton = _startPause;
+            restartButton = _restart;
             timeLabel.Text = maxTime.ToString();
         }
 
@@ -52,13 +55,13 @@ namespace RSBeeps
         }
 
         //enables the toolbar items that are passed
-        private void EnableToolbarItems(ToolStripMenuItem[] toolbaritems)
+        /*private void EnableToolbarItems(ToolStripMenuItem[] toolbaritems)
         {
             foreach (ToolStripMenuItem item in toolbaritems)
             {
                 item.Enabled = true;
             }
-        }
+        }*/
 
         //uses the SoundPlayer to play the .wav 
         private void beep()
@@ -67,13 +70,15 @@ namespace RSBeeps
         }
 
         //disables button, displays labels, and starts timer countdown
-        public void TransitionScreen(ToolStripMenuItem[] toolbaritems)
+        public void TransitionScreen()
         {
-            //enable labels and toolbar item
+            //enable labels and buttons
             timeLabel.Visible = true;
             infoLabel.Visible = true;
-            EnableToolbarItems(toolbaritems);
-            //disable button 
+            startPauseButton.Enabled = true;
+            restartButton.Enabled = true;
+
+            //Hide start button
             goButton.Enabled = false;
             goButton.Visible = false;
 
