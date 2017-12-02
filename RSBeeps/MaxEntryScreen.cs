@@ -11,7 +11,6 @@ namespace RSBeeps
 {
     public class MaxEntryScreen
     {
-        private int newMax;
         private MainScreen screen;
         private Label numberText;
         private Timer timer;
@@ -24,22 +23,23 @@ namespace RSBeeps
             timer = _timer;
         }
 
+        //updates the maximum number for the main screen.
         public void UpdateMax(NumericUpDown text)
         {
             int newMax;
             try
             {
                 newMax = (int)text.Value;
-                if (newMax == 0)
+                if (newMax < 1 || newMax > 999)
                 {
                     throw new Exception();
                 }
 
-                screen.ChangeMaxTime((int)text.Value, numberText, timer);
+                screen.ChangeMaxTime(newMax);
             }
             catch (Exception)
             {
-                MessageBox.Show("Invalid time entry");
+                MessageBox.Show("Invalid time entry. Time must be a whole value greater than 0 and less than 1000.", "Error");
             }
         }
 

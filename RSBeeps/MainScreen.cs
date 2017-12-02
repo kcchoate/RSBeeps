@@ -17,22 +17,32 @@ namespace RSBeeps
         private int remainingTime;
         private bool firstBeepPlayed;
         private SoundPlayer soundPlayer;
+        private Label timeLabel;
+        private Label infoLabel;
+        private Timer timer;
+        private Button goButton;
 
-        //Constructor
-        public MainScreen()
+
+        //Constructor: passed by reference so that changes to a passed object appear on the screen
+        public MainScreen(ref Label _time, ref Label _info, ref Timer _timer, ref Button _go)
         {
-            maxTime = 49;
+            maxTime = 50;
             remainingTime = maxTime;
-            firstBeepPlayed = true;
+            firstBeepPlayed = false;
             soundPlayer = new SoundPlayer("C:\\Program Files (x86)\\RSBeeps\\Media\\beep.wav");
+            timeLabel = _time;
+            infoLabel = _info;
+            timer = _timer;
+            goButton = _go;
+
+            timeLabel.Text = maxTime.ToString();
         }
 
         //beeps once and then configures and starts the timer.
-        private void StartScreen(Timer timer)
+        private void StartScreen()
         {
             //play an initial beep of the timer so that it beeps when started (otherwise it waits one second)
             beep();
-            firstBeepPlayed = true;
 
             //set the timer to tick every 1 second
             timer.Interval = 1000;
@@ -57,55 +67,63 @@ namespace RSBeeps
         }
 
         //disables button, displays labels, and starts timer countdown
-        public void TransitionScreen(Button button, Label message, Label time, Timer timer, ToolStripMenuItem[] toolbaritems)
+        public void TransitionScreen(ToolStripMenuItem[] toolbaritems)
         {
-            //disable button 
-            button.Enabled = false;
-            button.Visible = false;
             //enable labels and toolbar item
-            message.Visible = true;
-            time.Visible = true;
+            timeLabel.Visible = true;
+            infoLabel.Visible = true;
             EnableToolbarItems(toolbaritems);
+            //disable button 
+            goButton.Enabled = false;
+            goButton.Visible = false;
 
-            StartScreen(timer);
+            StartScreen();
         }
 
         //Plays the sound once every maxTime seconds (assumes timer interval is 1000ms) and resets timer to maxTime when time is 0
         public void TickScreenDown(Label text)
         {
-            if (remainingTime == maxTime && !firstBeepPlayed)
-            {
-                //drop the beep
-                beep();
-            }
+
             //bring the beep back and shout it loud
-            text.Text = (--remainingTime).ToString();
+            remainingTime--;
 
             if (remainingTime == 0)
             {
                 remainingTime = maxTime;
             }
+
+            text.Text = remainingTime.ToString();
+
+            if (remainingTime == maxTime && firstBeepPlayed)
+            {
+                //drop the beep
+                beep();
+            }
+           
+            //intentionally set to true even if the beep isn't played by this function the first run. Allows for us to avoid the
+            //situation in which a beep is played when started and when this function runs for the first time a second later.
+            firstBeepPlayed = true;
         }
 
         //sets the max time and restarts the timer if it has been started
-        public void ChangeMaxTime(int newTime, Label time, Timer timer)
+        public void ChangeMaxTime(int newTime)
         {
             maxTime = newTime;
             //check to see if the time is visible, if it then we've started and we want to restart the timer
-            if (time.Visible == true)
+            if (timeLabel.Visible == true)
             {
-                RestartTimer(time, timer);
+                RestartTimer();
             }
         }
 
         //restarts the timer
-        public void RestartTimer(Label time, Timer timer)
+        public void RestartTimer()
         {
-            //stop the timer, reset time, then call start the screen again
+            //stop the timer, reset time, reset first beep status, then call start the screen again
             timer.Stop();
             remainingTime = maxTime;
-            time.Text = maxTime.ToString();
-            StartScreen(timer);
+            timeLabel.Text = maxTime.ToString();
+            StartScreen();
         }
        
     } 

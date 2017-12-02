@@ -48,13 +48,14 @@
             // 
             // LabelTimeText
             // 
-            this.LabelTimeText.AutoSize = true;
+            this.LabelTimeText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LabelTimeText.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelTimeText.Location = new System.Drawing.Point(8, 55);
+            this.LabelTimeText.Location = new System.Drawing.Point(0, 24);
             this.LabelTimeText.Name = "LabelTimeText";
-            this.LabelTimeText.Size = new System.Drawing.Size(151, 108);
+            this.LabelTimeText.Size = new System.Drawing.Size(167, 142);
             this.LabelTimeText.TabIndex = 2;
             this.LabelTimeText.Text = "49";
+            this.LabelTimeText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.LabelTimeText.Visible = false;
             // 
             // labelInfo
@@ -126,7 +127,7 @@
             // setMaxTimeToolStripMenuItem
             // 
             this.setMaxTimeToolStripMenuItem.Name = "setMaxTimeToolStripMenuItem";
-            this.setMaxTimeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.setMaxTimeToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.setMaxTimeToolStripMenuItem.Text = "Set Max Time";
             this.setMaxTimeToolStripMenuItem.Click += new System.EventHandler(this.SetMaxTimeToolStripMenuItem_Click);
             // 

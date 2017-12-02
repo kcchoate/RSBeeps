@@ -17,9 +17,9 @@ namespace RSBeeps
 
         public FormMain()
         {
-            screen = new MainScreen();
             paused = false;
             InitializeComponent();
+            screen = new MainScreen(ref LabelTimeText, ref labelInfo, ref timer1, ref buttonStart);
         }
 
         //event handler for timer1, calls to tick down the screen if not paused
@@ -33,14 +33,15 @@ namespace RSBeeps
 
         private void ButtonStartClick(object sender, EventArgs e)
         {
-            ToolStripMenuItem[] toolStripItems = new ToolStripMenuItem[] { fileToolStripMenuItem, restartToolStripMenuItem, startPauseToolStripMenuItem };
-            screen.TransitionScreen(buttonStart, labelInfo, LabelTimeText, timer1, toolStripItems);
+            ToolStripMenuItem[] toolStripItems = new ToolStripMenuItem[] { fileToolStripMenuItem, restartToolStripMenuItem,
+                startPauseToolStripMenuItem };
+            screen.TransitionScreen(toolStripItems);
         }
 
         //fired from File > Restart. Restarts the timer at 50.
         private void RestartToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            screen.RestartTimer(LabelTimeText, timer1);
+            screen.RestartTimer();
         }
 
         //starts and pauses the timer and changes the top label to provide more info

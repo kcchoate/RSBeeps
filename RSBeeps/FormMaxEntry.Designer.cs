@@ -74,6 +74,7 @@
             this.MinimizeBox = false;
             this.Name = "FormMaxEntry";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Max Time Entry";
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTime)).EndInit();
